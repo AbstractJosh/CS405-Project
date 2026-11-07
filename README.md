@@ -2,7 +2,7 @@
 
 **Painting:** Şeker Ahmed Paşa — *Kavunlu Natürmort* (Still Life with Melon), Sakıp Sabancı Museum.
 The painting hangs on a wall as a textured quad. In front of it is a table with a weight bench and a barbell (OBJ models in `assets/`), a box you control
-from the UI and an animated desk lamp built from five OBJ parts. A curve traced along the top of the painted melon carries an arrow along its tangent.
+from the UI and an animated desk lamp built from five OBJ parts. A curve traced around the outline of the painted melon carries an arrow along its tangent.
 
 WebGPU + WGSL only. All matrix, camera, scene-graph and curve maths is written in this repository; no maths or 3D library is used.
 
@@ -37,6 +37,11 @@ You need a browser with WebGPU: current Chrome or Edge, Safari 26+, or Firefox 1
 | D · Curves | Bézier (C¹) or Catmull–Rom; parameter *t* (also drives the de Casteljau drawing); animate the arrow along the curve; **Export JSON** (downloads `curve.json`), **Remove last** segment/point, **Reset curve** |
 
 The overlay at the top left shows the frame time, fps, CPU time per frame, the number of vertices submitted per frame and the GPU name.
+
+## Credits
+
+Some of the code in this project is reused from my earlier project [XiaoShua3D](https://xiaoshua3d.vercel.app), and all
+the OBJ models in `assets/` (bench, barbell and the five lamp parts) come from it.
 
 ## Bonus
 
