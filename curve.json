@@ -1,0 +1,102 @@
+{
+  "painting": {
+    "artist": "Şeker Ahmed Paşa",
+    "title": "Kavunlu Natürmort (Still Life with Melon)",
+    "pixels": [
+      720,
+      502
+    ]
+  },
+  "coordinates": "normalised: (0,0) = bottom-left, (1,1) = top-right of the painting",
+  "bezier": {
+    "type": "piecewise cubic Bézier",
+    "continuity": "C1",
+    "segments": 3,
+    "points": [
+      {
+        "x": 0.2847,
+        "y": 0.7749,
+        "knot": true
+      },
+      {
+        "x": 0.3056,
+        "y": 0.8167,
+        "knot": false
+      },
+      {
+        "x": 0.375,
+        "y": 0.8685,
+        "knot": false
+      },
+      {
+        "x": 0.4583,
+        "y": 0.8845,
+        "knot": true
+      },
+      {
+        "x": 0.5417,
+        "y": 0.9004,
+        "knot": false
+      },
+      {
+        "x": 0.7292,
+        "y": 0.8845,
+        "knot": false
+      },
+      {
+        "x": 0.8194,
+        "y": 0.8108,
+        "knot": true
+      },
+      {
+        "x": 0.9097,
+        "y": 0.7371,
+        "knot": false
+      },
+      {
+        "x": 0.8958,
+        "y": 0.6116,
+        "knot": false
+      },
+      {
+        "x": 0.8722,
+        "y": 0.492,
+        "knot": true
+      }
+    ]
+  },
+  "catmullRom": {
+    "type": "uniform Catmull–Rom (end points repeated)",
+    "segments": 6,
+    "points": [
+      {
+        "x": 0.2847,
+        "y": 0.7749
+      },
+      {
+        "x": 0.3481,
+        "y": 0.8394
+      },
+      {
+        "x": 0.4583,
+        "y": 0.8845
+      },
+      {
+        "x": 0.6363,
+        "y": 0.8812
+      },
+      {
+        "x": 0.8194,
+        "y": 0.8108
+      },
+      {
+        "x": 0.8885,
+        "y": 0.6686
+      },
+      {
+        "x": 0.8722,
+        "y": 0.492
+      }
+    ]
+  }
+}
