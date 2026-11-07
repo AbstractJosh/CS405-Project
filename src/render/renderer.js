@@ -1,8 +1,7 @@
-// render/renderer.js — all WebGPU code: device, pipelines, buffers and one render pass per frame.
 import { SHADER } from './shaders.js';
 import { identity, multiply } from '../math/mat4.js';
 
-const SLOT = 256;          // bytes per draw in the uniform buffer (= minUniformBufferOffsetAlignment)
+const SLOT = 256;
 const MAX_DRAWS = 2048;
 
 export async function createRenderer(canvas, imageUrl) {
@@ -13,12 +12,10 @@ export async function createRenderer(canvas, imageUrl) {
   const device = await adapter.requestDevice();
   device.addEventListener('uncapturederror', e => console.error('WebGPU:', e.error.message));
 
-  // Render through an sRGB view of the canvas so the GPU gamma-encodes the linear colours the shader outputs.
   const context = canvas.getContext('webgpu');
   const format = navigator.gpu.getPreferredCanvasFormat(), srgb = `${format}-srgb`;
   context.configure({ device, format, viewFormats: [srgb], alphaMode: 'opaque' });
 
-  // The painting, in an sRGB texture: sampling returns linear values, matching the rest of the shading.
   const bmp = await createImageBitmap(await (await fetch(imageUrl)).blob());
   const texture = device.createTexture({
     size: [bmp.width, bmp.height], format: 'rgba8unorm-srgb',
@@ -41,8 +38,8 @@ export async function createRenderer(canvas, imageUrl) {
   const module = device.createShaderModule({ code: SHADER });
   const pipelineLayout = device.createPipelineLayout({ bindGroupLayouts: [layout] });
   const attrs = list => list.map(([format, offset], shaderLocation) => ({ format, offset, shaderLocation }));
-  const meshBuffers = [{ arrayStride: 32, attributes: attrs([['float32x3', 0], ['float32x3', 12], ['float32x2', 24]]) }];   // pos, normal, uv
-  const lineBuffers = [{ arrayStride: 24, attributes: attrs([['float32x3', 0], ['float32x3', 12]]) }];                      // pos, colour
+  const meshBuffers = [{ arrayStride: 32, attributes: attrs([['float32x3', 0], ['float32x3', 12], ['float32x2', 24]]) }];
+  const lineBuffers = [{ arrayStride: 24, attributes: attrs([['float32x3', 0], ['float32x3', 12]]) }];
   const pipeline = (vs, fs, buffers, topology, cullMode) => device.createRenderPipeline({
     layout: pipelineLayout,
     vertex: { module, entryPoint: vs, buffers },
@@ -67,8 +64,6 @@ export async function createRenderer(canvas, imageUrl) {
   const slots = new Float32Array((MAX_DRAWS * SLOT) / 4);
   let depth = null, imm = null;
 
-  // views: [{ rect: [x,y,w,h] in pixels, view, proj, draws: [{ mesh, world, color, mode }], lines, tris }]
-  // lines / tris are flat [x,y,z, r,g,b, …] lists in world space. Returns the vertices submitted.
   function render(views, clearValue) {
     const W = canvas.width, H = canvas.height;
     if (!depth || depth.width !== W || depth.height !== H) {
@@ -118,7 +113,6 @@ export async function createRenderer(canvas, imageUrl) {
       }
     }
     pass.end();
-    // Queue writes are ordered before the submit, so the GPU sees this frame's data when the pass runs.
     device.queue.writeBuffer(uniforms, 0, slots, 0, n * (SLOT / 4));
     if (used) device.queue.writeBuffer(imm, 0, immData, 0, used);
     device.queue.submit([enc.finish()]);

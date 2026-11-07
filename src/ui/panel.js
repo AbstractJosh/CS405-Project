@@ -1,5 +1,3 @@
-// ui/panel.js — side panel of native HTML controls bound to keys of one shared `state` object.
-// refresh() pushes state back into every control (after a reset, or when the mouse/animation changed it).
 const h = (tag, props = {}, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
 
 export function buildPanel(root, state) {

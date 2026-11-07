@@ -1,4 +1,3 @@
-// Run with: npm test   (Node's built-in test runner, no dependencies)
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as M from '../src/math/mat4.js';
@@ -25,8 +24,8 @@ test('translate, rotate, scale act on points as expected', () => {
 });
 
 test('order matters: T·S vs S·T', () => {
-  close(apply(M.compose(M.translate(1, 0, 0), M.scale(2, 2, 2)), [1, 0, 0]), [3, 0, 0]);   // scale, then move
-  close(apply(M.compose(M.scale(2, 2, 2), M.translate(1, 0, 0)), [1, 0, 0]), [4, 0, 0]);   // the move is scaled too
+  close(apply(M.compose(M.translate(1, 0, 0), M.scale(2, 2, 2)), [1, 0, 0]), [3, 0, 0]);
+  close(apply(M.compose(M.scale(2, 2, 2), M.translate(1, 0, 0)), [1, 0, 0]), [4, 0, 0]);
 });
 
 test('transpose is an involution; invertRigid inverts rigid transforms', () => {
@@ -47,7 +46,7 @@ test('lookAt sends the eye to the origin and the target onto −z', () => {
 test('lookAt survives up parallel to the view direction', () => {
   const V = M.lookAt([0, 5, 0], [0, 0, 0], [0, 1, 0]);
   assert.ok([...V].every(Number.isFinite));
-  close(M.multiply(M.invertRigid(V), V), M.identity());   // still a rotation + translation
+  close(M.multiply(M.invertRigid(V), V), M.identity());
   close(apply(V, [0, 0, 0]), [0, 0, -5]);
 });
 

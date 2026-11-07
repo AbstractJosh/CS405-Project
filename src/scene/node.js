@@ -1,13 +1,12 @@
-// scene/node.js — scene-graph node. Each node stores only its LOCAL transform (relative to its parent);
-// its WORLD transform is the product of every local matrix on the path from the root:
-//   world(n) = world(parent) · local(n) = local(root) · … · local(parent) · local(n)
-import { identity, multiply } from '../math/mat4.js';
+import { identity, multiply, translate } from '../math/mat4.js';
 
 export class Node {
-  // shape: true marks pure geometry nodes (a box scaled into a table top, …) as opposed to frames/joints;
-  // debug axes are drawn only for frames, and scale on a shape node never leaks into its siblings.
   constructor(name, { local = identity(), mesh = null, color = [1, 1, 1], mode = 0, shape = false } = {}) {
-    Object.assign(this, { name, local, mesh, color, mode, shape, parent: null, children: [], world: identity() });
+    Object.assign(this, { name, local, mesh, color, mode, shape, offset: [0, 0, 0], parent: null, children: [], world: identity() });
+  }
+
+  matrix() {
+    return multiply(translate(...this.offset), this.local);
   }
 
   add(...nodes) {
@@ -15,9 +14,8 @@ export class Node {
     return this;
   }
 
-  // Depth-first traversal: parent world matrices are computed before their children need them.
   update(parentWorld = identity()) {
-    this.world = multiply(parentWorld, this.local);
+    this.world = multiply(parentWorld, this.matrix());
     for (const c of this.children) c.update(this.world);
   }
 

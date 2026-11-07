@@ -1,5 +1,3 @@
-// ui/input.js — mouse on the canvas: drag a control point if one is under the cursor, otherwise orbit;
-// shift+click adds a point; the wheel zooms. Positions are passed on in canvas pixels.
 export function attachInput(canvas, app) {
   let drag = null, last = null;
   const at = e => {

@@ -2,7 +2,7 @@
 
 **Painting:** Şeker Ahmed Paşa — *Kavunlu Natürmort* (Still Life with Melon), Sakıp Sabancı Museum.
 The painting hangs on a wall as a textured quad. In front of it is a table with a weight bench and a barbell (OBJ models in `assets/`), a box you control
-from the UI and an animated desk lamp. A curve traced along the top of the painted melon carries an arrow along its tangent.
+from the UI and an animated desk lamp built from five OBJ parts. A curve traced along the top of the painted melon carries an arrow along its tangent.
 
 WebGPU + WGSL only. All matrix, camera, scene-graph and curve maths is written in this repository; no maths or 3D library is used.
 
@@ -37,6 +37,13 @@ You need a browser with WebGPU: current Chrome or Edge, Safari 26+, or Firefox 1
 | D · Curves | Bézier (C¹) or Catmull–Rom; parameter *t* (also drives the de Casteljau drawing); animate the arrow along the curve; **Export JSON** (downloads `curve.json`), **Remove last** segment/point, **Reset curve** |
 
 The overlay at the top left shows the frame time, fps, CPU time per frame, the number of vertices submitted per frame and the GPU name.
+
+## Bonus
+
+**Surface of revolution.** The golden melon on the table is the traced curve (Part D) revolved 360° about its chord,
+the line from its first to its last point (`revolve` in `src/render/meshes.js`). Normals come from the curve tangent.
+It is re-swept whenever the curve changes, so dragging a control point reshapes the melon live, and switching the
+curve type sweeps the Catmull–Rom curve instead.
 
 ## Structure
 
