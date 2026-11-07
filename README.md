@@ -6,15 +6,6 @@ from the UI and an animated desk lamp built from five OBJ parts. A curve traced 
 
 WebGPU + WGSL only. All matrix, camera, scene-graph and curve maths is written in this repository; no maths or 3D library is used.
 
-## Run
-
-```bash
-npm install && npm run dev      # then open the printed URL (http://localhost:5173)
-npm test                        # unit tests for the maths (Node's built-in test runner)
-```
-
-You need a browser with WebGPU: current Chrome or Edge, Safari 26+, or Firefox 141+ (Windows).
-
 ## Controls
 
 **Mouse (on the 3D view)**
